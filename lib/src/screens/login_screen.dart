@@ -43,8 +43,10 @@ class LoginScreenState extends State<Login> {
           if (!value.contains('@')) {
             return "Please enter valid email";
           }
-
           return null;
+      },
+      onSaved: (String value) {
+        print(value);
       },
     );
   }
@@ -58,11 +60,15 @@ class LoginScreenState extends State<Login> {
       ),
       obscureText: true,
       validator: (String value) {
+        // return null if valid
+          // otherwise return string if invalid
         if (value.length < 4) {
           return "Password must be atleast 4 characters";
         }
-
-          return null;
+        return null;
+      },
+      onSaved: (String value) {
+        print(value);
       },
     );
   }
@@ -72,7 +78,9 @@ class LoginScreenState extends State<Login> {
     return RaisedButton(
       color: Colors.blue,
       onPressed: () {
-        formKey.currentState.validate();
+        if ( formKey.currentState.validate() ) {
+          formKey.currentState.save();
+        }
       },
       child: Text(
         'Submit!',
